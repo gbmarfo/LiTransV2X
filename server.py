@@ -21,8 +21,8 @@ while True:
     try:
         with open('dsrc.txt') as f:
             for line in f:
-                line = line.decode()
-                message = line.strip()
+                # line = line.decode()
+                message = line
                 server.sendto(message, ('<broadcast>', 37020))
     except IOError as e:
         pass
