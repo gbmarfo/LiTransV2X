@@ -19,10 +19,9 @@ server.settimeout(0.2)
 # message = b"your very important message"
 while True:
     try:
-        with open('dsrc.txt') as f:
+        with open('dsrc.txt', 'rb') as f:
             for line in f:
-                # line = line.decode()
-                message = line
+                message = line.strip()
                 server.sendto(message, ('<broadcast>', 37020))
     except IOError as e:
         pass
