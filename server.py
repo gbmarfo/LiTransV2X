@@ -16,16 +16,16 @@ server.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
 # Set a timeout so the socket does not block
 # indefinitely when trying to receive data.
 server.settimeout(0.2)
-message = b"your very important message"
+# message = b"your very important message"
 while True:
     try:
         with open('dsrc.txt') as f:
             for line in f:
                 message = line.strip()
                 server.sendto(message, ('<broadcast>', 37020))
-        except IOError as e:
-            pass
-        time.sleep(1)
+    except IOError as e:
+        pass
+    time.sleep(1)
 
 
     # server.sendto(message, ('<broadcast>', 37020))
