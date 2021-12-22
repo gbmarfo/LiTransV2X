@@ -3,7 +3,6 @@ import time
 
 server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)
 
-
 # Enable port reusage so we will be able to run multiple clients and servers on single (host, port). 
 # Do not use socket.SO_REUSEADDR except you using linux(kernel<3.9): goto https://stackoverflow.com/questions/14388706/how-do-so-reuseaddr-and-so-reuseport-differ for more information.
 # For linux hosts all sockets that want to share the same address and port combination must belong to processes that share the same effective user ID!
@@ -19,6 +18,16 @@ server.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
 server.settimeout(0.2)
 message = b"your very important message"
 while True:
-    server.sendto(message, ('<broadcast>', 37020))
-    print("message sent!")
-    time.sleep(1)
+    try:
+        with open('dsrc.txt') as f:
+            for line in f:
+                message = line.strip()
+                server.sendto(message, ('<broadcast>', 37020))
+        except IOError as e:
+            pass
+        time.sleep(1)
+
+
+    # server.sendto(message, ('<broadcast>', 37020))
+    # print("message sent!")
+    # time.sleep(1)
